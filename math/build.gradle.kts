@@ -13,6 +13,7 @@ plugins {
 apply<com.ivy.buildsrc.IvyPlugin>()
 
 dependencies {
+    implementation("org.junit.jupiter:junit-jupiter:5.8.1")
     Hilt()
     implementation(project(":common:main"))
     implementation(project(":parser"))
