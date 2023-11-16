@@ -2,6 +2,8 @@ package com.ivy.core.domain.action.exchange
 
 import com.ivy.core.domain.action.SharedFlowAction
 import com.ivy.core.domain.action.settings.basecurrency.BaseCurrencyFlow
+import com.ivy.core.domain.pure.util.DispatcherProvider
+import com.ivy.core.domain.pure.util.StandardDispatchers
 import com.ivy.core.persistence.dao.exchange.ExchangeRateDao
 import com.ivy.core.persistence.dao.exchange.ExchangeRateOverrideDao
 import com.ivy.data.exchange.ExchangeRates
@@ -26,6 +28,7 @@ class ExchangeRatesFlow @Inject constructor(
     private val baseCurrencyFlow: BaseCurrencyFlow,
     private val exchangeRateDao: ExchangeRateDao,
     private val exchangeRateOverrideDao: ExchangeRateOverrideDao,
+    private val dispatchers: DispatcherProvider
 ) : SharedFlowAction<ExchangeRates>() {
     override fun initialValue(): ExchangeRates = ExchangeRates(
         baseCurrency = "",
@@ -55,5 +58,5 @@ class ExchangeRatesFlow @Inject constructor(
                     rates = ratesMap,
                 )
             }
-        }.flowOn(Dispatchers.Default)
+        }.flowOn(dispatchers.default)
 }
